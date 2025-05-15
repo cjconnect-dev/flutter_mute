@@ -10,7 +10,13 @@ public class SwiftFlutterMutePlugin: NSObject, FlutterPlugin {
     }
     
     var isSimulator: Bool {
-        return TARGET_OS_SIMULATOR != 0
+        return {
+            #if targetEnvironment(simulator)
+            return true
+            #else
+            return false
+            #endif
+        }()
     }
     
   public static func register(with registrar: FlutterPluginRegistrar) {
